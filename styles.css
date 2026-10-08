@@ -445,7 +445,7 @@ main {
   .visual-mix-image { height: 65svh; }
   .visual-mix-copy { grid-template-columns: 1fr; }
   .audio-layout { grid-template-columns: 1fr; }
-  .audio-photo { height: auto; aspect-ratio: 4 / 5; }
+  .audio-photo { display: none; }
   .audio-list { height: 30rem; padding-right: .45rem; }
   .audio-row { grid-template-columns: auto 1fr; }
   .audio-row audio { grid-column: 2; width: 100%; margin-top: .5rem; }
