@@ -339,6 +339,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .cv dl div:last-child { border-bottom: 1px solid var(--line); }
 .cv dt { color: var(--orange); font-size: .71rem; font-weight: 650; letter-spacing: .09em; text-transform: uppercase; }
 .cv dd { margin: 0; color: var(--paper-dim); }
+.cv-bio { grid-column: 1 / -1; display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(3rem, 9vw, 10rem); padding-top: clamp(3rem, 5vw, 5rem); border-top: 1px solid var(--line); }
+.cv-bio h3 { margin: 0; font-family: var(--serif); font-size: clamp(2.8rem, 5vw, 5.5rem); font-weight: 400; letter-spacing: -.035em; line-height: .95; }
+.cv-bio-copy { max-width: 48rem; }
+.cv-bio-copy p { margin: 0; color: var(--paper-dim); font-size: clamp(.98rem, 1.15vw, 1.08rem); line-height: 1.7; }
+.cv-bio-copy p + p { margin-top: 1.5rem; }
 
 .contact { min-height: 85vh; background: var(--orange); color: var(--ink); }
 .contact-inner { margin: clamp(4rem, 8vw, 8rem) 0 0 clamp(0rem, 17vw, 18rem); }
@@ -444,7 +449,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .audio-row { grid-template-columns: auto 1fr; }
   .audio-row audio { grid-column: 2; width: 100%; margin-top: .5rem; }
   .audio-seek { grid-column: 2; display: grid; width: 100%; margin-top: -.35rem; }
-  .cv { grid-template-columns: 1fr; }
+  .cv, .cv-bio { grid-template-columns: 1fr; }
+  .cv-bio { gap: 2rem; }
   .contact { min-height: 75vh; }
   .contact-inner { margin-left: 0; }
   .site-footer { grid-template-columns: 1fr auto; gap: 1.5rem; }
