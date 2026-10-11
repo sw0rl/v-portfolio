@@ -29,17 +29,6 @@ img { display: block; max-width: 100%; }
 button, a { -webkit-tap-highlight-color: transparent; }
 ::selection { background: var(--orange); color: var(--ink); }
 
-main {
-  display: flex;
-  flex-direction: column;
-}
-
-.hero { order: 0; }
-.work { order: 1; }
-.cv { order: 2; }
-.services { order: 3; }
-.contact { order: 4; }
-
 .skip-link {
   position: fixed;
   left: 1rem;
