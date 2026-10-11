@@ -90,15 +90,19 @@ audioPlayers.forEach((player) => {
   const seekControl = document.createElement("div");
   seekControl.className = "audio-seek";
   seekControl.innerHTML = `
+    <button class="audio-play" type="button">Play</button>
     <span data-current-time>0:00</span>
     <input type="range" min="0" max="100" value="0" step="0.1" disabled aria-label="Seek through ${player.getAttribute("aria-label") || "audio track"}">
     <span data-duration>0:00</span>
   `;
 
+  const playButton = seekControl.querySelector(".audio-play");
   const seekInput = seekControl.querySelector("input");
   const currentTime = seekControl.querySelector("[data-current-time]");
   const duration = seekControl.querySelector("[data-duration]");
   let isSeeking = false;
+
+  playButton.setAttribute("aria-label", player.getAttribute("aria-label") || "Play audio track");
 
   const formatTime = (seconds) => {
     if (!Number.isFinite(seconds)) return "0:00";
@@ -125,6 +129,14 @@ audioPlayers.forEach((player) => {
   player.addEventListener("timeupdate", updateProgress);
   if (player.readyState >= 1) updateDuration();
 
+  playButton.addEventListener("click", () => {
+    if (player.paused) {
+      player.play();
+    } else {
+      player.pause();
+    }
+  });
+
   seekInput.addEventListener("input", () => {
     isSeeking = true;
     if (Number.isFinite(player.duration)) {
@@ -141,8 +153,15 @@ audioPlayers.forEach((player) => {
   });
 
   player.addEventListener("play", () => {
+    playButton.textContent = "Pause";
+    playButton.setAttribute("aria-label", `Pause ${player.getAttribute("aria-label")?.replace(/^Play /, "") || "audio track"}`);
     audioPlayers.forEach((otherPlayer) => {
       if (otherPlayer !== player) otherPlayer.pause();
     });
+  });
+
+  player.addEventListener("pause", () => {
+    playButton.textContent = "Play";
+    playButton.setAttribute("aria-label", player.getAttribute("aria-label") || "Play audio track");
   });
 });
