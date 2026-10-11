@@ -36,8 +36,8 @@ main {
 
 .hero { order: 0; }
 .work { order: 1; }
-.services { order: 2; }
-.cv { order: 3; }
+.cv { order: 2; }
+.services { order: 3; }
 .contact { order: 4; }
 
 .skip-link {
@@ -216,7 +216,7 @@ main {
 }
 .service-number { margin: .3rem 0 0; color: var(--orange); font-size: .75rem; }
 .service h3 { margin: 0; font-family: var(--serif); font-size: clamp(2rem, 3vw, 3.7rem); font-weight: 400; line-height: 1; }
-.service > p:not(.service-number) { max-width: 35rem; margin: .25rem 0 0; color: var(--paper-dim); }
+.service > p:not(.service-number) { align-self: center; max-width: 35rem; margin: 0; color: var(--paper-dim); }
 .service ul { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0; padding: 0; list-style: none; }
 .service li { padding: .55rem .85rem; border: 1px solid var(--line); border-radius: 999px; color: var(--paper-dim); font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; }
 
@@ -333,6 +333,11 @@ main {
 .audio-row h4 { margin: 0; font-family: var(--serif); font-size: clamp(1.7rem, 2.5vw, 2.7rem); font-weight: 400; line-height: 1; }
 .audio-row div p { margin: .4rem 0 0; color: rgba(11,11,9,.62); font-size: .82rem; }
 .audio-row audio { width: 100%; height: 2.75rem; filter: grayscale(1) contrast(.93); }
+.audio-seek { grid-column: 3; display: none; grid-template-columns: 2.8rem minmax(0, 1fr) 2.8rem; gap: .7rem; align-items: center; margin-top: -.75rem; }
+.audio-seek span { color: rgba(11,11,9,.58); font-size: .68rem; font-variant-numeric: tabular-nums; }
+.audio-seek span:last-child { text-align: right; }
+.audio-seek input { width: 100%; min-height: 2rem; margin: 0; accent-color: var(--ink); cursor: pointer; touch-action: pan-x; }
+.audio-seek input:disabled { cursor: wait; opacity: .45; }
 .preview-tier + .mix-tier { padding-top: 2rem; }
 
 .cv { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(3rem, 9vw, 10rem); background: #1b1915; }
@@ -449,6 +454,7 @@ main {
   .audio-list { height: 30rem; padding-right: .45rem; }
   .audio-row { grid-template-columns: auto 1fr; }
   .audio-row audio { grid-column: 2; width: 100%; margin-top: .5rem; }
+  .audio-seek { grid-column: 2; display: grid; width: 100%; margin-top: -.35rem; }
   .cv { grid-template-columns: 1fr; }
   .contact { min-height: 75vh; }
   .contact-inner { margin-left: 0; }

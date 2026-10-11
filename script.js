@@ -87,6 +87,59 @@ document.querySelectorAll(".video-trigger").forEach((trigger) => {
 
 const audioPlayers = document.querySelectorAll("audio");
 audioPlayers.forEach((player) => {
+  const seekControl = document.createElement("div");
+  seekControl.className = "audio-seek";
+  seekControl.innerHTML = `
+    <span data-current-time>0:00</span>
+    <input type="range" min="0" max="100" value="0" step="0.1" disabled aria-label="Seek through ${player.getAttribute("aria-label") || "audio track"}">
+    <span data-duration>0:00</span>
+  `;
+
+  const seekInput = seekControl.querySelector("input");
+  const currentTime = seekControl.querySelector("[data-current-time]");
+  const duration = seekControl.querySelector("[data-duration]");
+  let isSeeking = false;
+
+  const formatTime = (seconds) => {
+    if (!Number.isFinite(seconds)) return "0:00";
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60).toString().padStart(2, "0");
+    return `${minutes}:${remainingSeconds}`;
+  };
+
+  const updateDuration = () => {
+    if (!Number.isFinite(player.duration) || player.duration <= 0) return;
+    seekInput.disabled = false;
+    duration.textContent = formatTime(player.duration);
+  };
+
+  const updateProgress = () => {
+    if (isSeeking || !Number.isFinite(player.duration) || player.duration <= 0) return;
+    seekInput.value = String((player.currentTime / player.duration) * 100);
+    currentTime.textContent = formatTime(player.currentTime);
+  };
+
+  player.insertAdjacentElement("afterend", seekControl);
+  player.addEventListener("loadedmetadata", updateDuration);
+  player.addEventListener("durationchange", updateDuration);
+  player.addEventListener("timeupdate", updateProgress);
+  if (player.readyState >= 1) updateDuration();
+
+  seekInput.addEventListener("input", () => {
+    isSeeking = true;
+    if (Number.isFinite(player.duration)) {
+      currentTime.textContent = formatTime((Number(seekInput.value) / 100) * player.duration);
+    }
+  });
+
+  seekInput.addEventListener("change", () => {
+    if (Number.isFinite(player.duration)) {
+      player.currentTime = (Number(seekInput.value) / 100) * player.duration;
+    }
+    isSeeking = false;
+    updateProgress();
+  });
+
   player.addEventListener("play", () => {
     audioPlayers.forEach((otherPlayer) => {
       if (otherPlayer !== player) otherPlayer.pause();
